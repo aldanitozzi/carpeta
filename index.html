@@ -1,14 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNJUEGOPARATI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>♥ QUIÉN ES LA MUJER MÁS BONITA DE TODAS ♥</title>
+  <style>
+    body {
+      background-color: rgb(246, 245, 243);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .body__title {
+      color: rgb(6, 0, 0);
+      font-size: 2em;
+      margin-top: 20px;
+    }
+
+    .body__img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 50%;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button {
+      background-color: #f2a310;
+      border: none;
+      color: rgb(255, 255, 255);
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #d89d09;
+    }
+
+    /* Estilos para el mensaje personalizado */
+    .custom-alert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      max-width: 80%;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .custom-alert h2,
+    .custom-alert p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .custom-alert h2 {
+      color: #333;
+    }
+
+    .custom-alert p {
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .custom-alert button {
+      background-color: #f2a310;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .custom-alert button:hover {
+      background-color: #d89d09;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .alert-background {
+      background-image: url('imagenes/imagenes2.jpg'); /* Imagen de fondo para alertas */
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 500; /* Asegúrate de que esté detrás del cuadro de alerta */
+      display: none; /* Ocultar al inicio */
+    }
+  </style>
 </head>
-<body class="body">
-    <body class="body"></body>
-    <h1 class="body__title">hola brosito esto funciona </h1>
-    <img src="" alt="">
+
+<body>
+  <h1 id="title" class="body__title">♥ ¿QUIÉN ES LA MUJER MÁS BONITA DE TODAS? ♥</h1>
+  <img id="bodyImage" src="imagenes/imagenes.jpeg" alt="Foto Inicial" class="body__img" />
+  <br>
+  <button id="yes">Sí, soy</button>
+  <button id="no">No lo soy</button>
+
+  <!-- Imagen de fondo para alertas -->
+  <div id="alertBackground" class="alert-background"></div>
+
+  <!-- Mensajes personalizados -->
+  <div id="customAlert" class="custom-alert">
+    <h2 id="alertTitle"></h2>
+    <p id="alertMessage"></p>
+    <button onclick="nextMessage()">Siguiente</button>
+  </div>
+
+  <script>
+    const buttonYes = document.getElementById('yes');
+    const buttonNo = document.getElementById('no');
+    const customAlert = document.getElementById('customAlert');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMessage = document.getElementById('alertMessage');
+    const bodyImage = document.getElementById('bodyImage');
+    const title = document.getElementById('title');
+    const alertBackground = document.getElementById('alertBackground');
+
+    let currentMessageIndex = 0;
+    const messages = [
+      {
+        title: 'RECORDATORIO 1',
+        message: 'Tus palabras y tus actos llenan el corazón de calidez. Eres alguien que transforma lo ordinario en extraordinario, y cada día me sorprendes más con tu amor y bondad.♡'
+      },
+      {
+        title: 'RECORDATORIO 2',
+        message: 'Eres la combinación perfecta entre belleza e inteligencia, una mezcla tan rara y preciosa que deja sin palabras. Cada día sorprendes con tu capacidad de hacer que todo lo que tocas se vuelva especial.♡'
+      },
+      {
+        title: 'RECORDATORIO 3',
+        message: 'Lamento mucho que ayer haya sido un día difícil para ti. Quiero que sepas cuánto valoro todo lo que haces, incluso en los días más complicados. Eres una persona increíble y tu esfuerzo y dedicación no pasan desapercibidos. A veces, los días malos pueden ser duros, pero quiero que sepas que estoy aquí para apoyarte en todo momento. Estoy seguro de que hoy será un día mejor y que tu luz brillará aún más. Te aprecio mucho y espero que encuentres razones para sonreír hoy.♡'
+      },
+      {
+        title: 'RECORDATORIO 4',
+        message: 'Ahora relájate con tu canción preferida.♡'
+      }
+    ];
+
+    const showAlert = () => {
+      title.classList.add('hidden'); // Ocultar el título
+      bodyImage.classList.add('hidden'); // Ocultar la imagen inicial
+      buttonYes.classList.add('hidden'); // Ocultar el botón "Sí, soy"
+      buttonNo.classList.add('hidden'); // Ocultar el botón "No lo soy"
+      alertBackground.style.display = 'block'; // Mostrar fondo para alertas
+
+      const message = messages[currentMessageIndex];
+      alertTitle.textContent = message.title;
+      alertMessage.textContent = message.message;
+      customAlert.style.display = 'block';
+    };
+
+    const nextMessage = () => {
+      customAlert.style.display = 'none';
+      currentMessageIndex++;
+      if (currentMessageIndex < messages.length) {
+        showAlert();
+      } else {
+        // Ocultar todo y redirigir
+        title.classList.add('hidden');
+        bodyImage.classList.add('hidden');
+        buttonYes.classList.add('hidden');
+        buttonNo.classList.add('hidden');
+        alertBackground.style.display = 'none'; // Ocultar fondo para alertas
+        window.location.href = 'https://www.youtube.com/watch?v=AA2HFtHbe_A';
+      }
+    };
+
+    const moveButtonNo = () => {
+      buttonNo.style.position = 'absolute';
+      buttonNo.style.top = `${Math.random() * (window.innerHeight - buttonNo.offsetHeight)}px`;
+      buttonNo.style.left = `${Math.random() * (window.innerWidth - buttonNo.offsetWidth)}px`;
+    };
+
+    buttonYes.addEventListener('click', showAlert);
+    buttonNo.addEventListener('mouseover', moveButtonNo);
+  </script>
 </body>
 
 </html>
